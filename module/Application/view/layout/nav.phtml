@@ -1,0 +1,48 @@
+<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="<?php echo $this->basePath();?>/adminModule/img/find_user.png" class="user-image img-responsive"/>
+					</li>
+				
+					
+                    <li>
+                        <a class="active-menu"  href="<?php echo $this->url('dashboard'); ?>"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Manage Users<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo $this->url('userlist'); ?>">User List</a>
+                            </li>
+                        </ul>
+                    </li>  
+                     <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Manage Products<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo $this->url('productlist'); ?>">Product List</a>
+                            </li>
+                        </ul>
+                    </li> 
+					   <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Manage Category<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo $this->url('category'); ?>">Category List</a>
+                            </li>
+                        </ul>
+                    </li> 	
+                      <li>
+                        <a href="#"><i class="fa fa-sitemap fa-3x"></i> Manage Album<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="<?php echo $this->url('album'); ?>">Album List</a>
+                            </li>
+                        </ul>
+                    </li> 					
+                </ul>
+               
+            </div>
+            
+        </nav>

@@ -1,0 +1,51 @@
+<?php  echo $this->inlineScript()
+        ->prependFile($this->basePath('js/jquery.validate.js'));
+?>
+<script>
+$(document).ready(function(){
+	if($("#addProduct").validate){
+		$("#addProduct").validate({
+										
+										
+								});
+	}
+});
+</script>
+<div class="panel-body1">
+	<div class="row1">
+		<div class="col-md-41">
+		<?php 
+			$form = $this->form;
+			$mf = $form->get('product-fieldset');
+			$form->prepare(); 
+			$form->setAttributes(array('action'=>$this->url(),'id'=>'addProduct'));
+			
+			echo $this->form()->openTag($form);
+		?>
+				<div class="form-group">
+					<label>Product Name</label>
+					<?php 
+					$productName=$mf->get('name');
+					echo $this->formInput($productName);
+					
+					?>
+					
+				</div>
+				<div class="form-group">
+					<label>Product Price</label>
+					<?php $productPrice=$mf->get('price');
+						  echo  $this->formInput($productPrice);
+					?>
+				</div>
+				<div class="form-group">
+					<label>Product Quantity</label>
+					<?php
+						$productQuantity=$mf->get('quantity');
+						echo $this->formInput($productQuantity);
+					?>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit Button</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,80 @@
+<?php
+/*  if(define('RUNNING_FROM_ROOT')){
+	$this->plugin('basePath')->setBasePath($this->basePath() . '/public');
+}  */ 
+echo $this->inlineScript()
+        ->prependFile($this->basePath('js/ckeditor/ckeditor.js'))
+		->prependFile($this->basePath('js/jquery.validate.js'));
+?>
+<script>
+$(document).ready(function(){
+	if($("#addcategory").validate){
+			$("#addcategory").validate({
+				rules:{
+					'name':{
+						required: true,
+						remote: {
+							url: "<?php echo 'http://localhost/zend/public/category/checkcategory';  ?>",
+							type: "post",
+							data: {
+							  name: function() {
+								return $( "#categoryname" ).val();
+							  }
+							}
+						}
+					}
+				},
+				messages:{
+					'name':{
+						required: 'This field is required.',
+						remote: 'Category already exit.'
+					}
+				}		
+					
+			});
+		}
+	CKEDITOR.replace('description',{
+		width:500,
+		height:300
+	});	
+});
+
+   
+</script>
+<style>
+.error{
+	color:red;
+}
+</style>
+<div class="panel-body1">
+	<div class="row1">
+		<div class="col-md-41">
+		<?php 
+		   $form=$this->form;
+		   $form->setAttributes(array('action'=>$this->url(),'id'=>'addcategory'));
+		   $form->prepare();
+		   echo $this->form()->openTag($form)
+		   //echo $this->form->openTag($form);
+		   
+		?>
+				<div class="form-group">
+					<label>Category Name:</label>
+					<?php 
+					echo $this->formHidden($form->get('id'));
+					echo $this->formRow($form->get('name')->setAttributes(array('id'=>'categoryname','name'=>'name')));
+					/* $productName=$mf->get('name');
+					echo $this->formInput($productName); */
+					
+					?>
+					
+				</div>
+				<button type="submit" class="btn btn-primary">Submit </button>
+					<?php 
+						//echo $this->formRow($form->get('submit')); 
+					?>
+				
+				
+		        </form>
+		</div>
+	</div>
+</div>

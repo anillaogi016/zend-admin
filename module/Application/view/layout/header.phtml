@@ -1,0 +1,49 @@
+ <meta charset="utf-8">
+        <?php echo $this->headTitle('Demo'. $this->translate('Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon'))
+		                ->prependStylesheet($this->basePath('adminModule/css/facebox.css'))
+						//->prependStylesheet($this->basePath('adminModule/css/popup.css'))
+						->prependStylesheet($this->basePath('adminModule/css/custom.css'))
+                        ->prependStylesheet($this->basePath('adminModule/css/bootstrap.css'))
+						 ->prependStylesheet($this->basePath('adminModule/css/font-awesome.css'))
+						 ->prependStylesheet($this->basePath('adminModule/js/morris/morris-0.4.3.min.css'))
+						 ;
+						//->prependStylesheet($this->basePath('css/bootstrap.min.css')) ?>
+       <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+		    
+		    ->prependFile($this->basePath('adminModule/js/facebox.js'))
+			//->prependFile($this->basePath('adminModule/js/jquery.metisMenu.js'))
+			//->prependFile($this->basePath('adminModule/js/jquery.popup.js'))
+		    ->prependFile($this->basePath('adminModule/js/morris/raphael-2.1.0.min.js'))
+		    ->prependFile($this->basePath('adminModule/js/morris/morris.js'))
+			->prependFile($this->basePath('adminModule/js/jquery.metisMenu.js'))
+			//->prependFile($this->basePath('adminModule/js/custom.js'))
+			->prependFile($this->basePath('adminModule/js/bootstrap.min.js'))
+			
+		    ->prependFile($this->basePath('adminModule/js/jquery-1.10.2.js'))
+		   
+			
+			;
+			//->prependFile($this->basePath('adminModule/js/jquery-1.10.2.js'));
+			 
+             ?>
+<style>
+#suceess_msg_id ul, .suceess-message ul {
+    border: 1px solid #535054;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #dff0d8;
+    color: #161B16;
+    list-style: none;
+}
+</style>
