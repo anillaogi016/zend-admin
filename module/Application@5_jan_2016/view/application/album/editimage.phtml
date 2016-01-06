@@ -1,0 +1,47 @@
+<?php
+/*  if(define('RUNNING_FROM_ROOT')){
+	$this->plugin('basePath')->setBasePath($this->basePath() . '/public');
+}  */ 
+echo $this->inlineScript()
+        ->prependFile($this->basePath('js/ckeditor/ckeditor.js'))
+		->prependFile($this->basePath('js/jquery.validate.js'));
+?>
+<script>
+$(document).ready(function(){
+	if($("#addAlbum").validate){
+			$("#addAlbum").validate({
+											
+											
+									});
+		}	
+});
+
+   
+</script>
+<style>
+.error{
+	color:red;
+}
+</style>
+<div class="panel-body1">
+	<div class="row1">
+		<div class="col-md-41">
+		<?php 
+		   $form=$this->form;
+		   $form->setAttributes(array('action'=>$this->url('album',array('action'=>'editimage','id'=>$this->id)),'id'=>'addAlbum','enctype'=>'multipart/form-data'));
+		   $form->prepare();
+		   echo $this->form()->openTag($form)
+		   //echo $this->form->openTag($form);
+		   
+		?>
+				<div class="form-group">
+					<?php 
+					echo $this->formHidden($form->get('id'));
+					echo $this->formRow($form->get('image'));
+					?>
+				</div>
+				<button type="submit" class="btn btn-primary">Upload Image </button>
+		    </form>
+		</div>
+	</div>
+</div>

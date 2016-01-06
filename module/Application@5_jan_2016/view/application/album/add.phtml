@@ -1,0 +1,104 @@
+<?php
+/*  if(define('RUNNING_FROM_ROOT')){
+	$this->plugin('basePath')->setBasePath($this->basePath() . '/public');
+}  */ 
+echo $this->inlineScript()
+        ->prependFile($this->basePath('js/ckeditor/ckeditor.js'))
+		->prependFile($this->basePath('js/jquery.validate.js'));
+?>
+<script>
+$(document).ready(function(){
+	if($("#addAlbum").validate){
+			$("#addAlbum").validate({
+											
+											
+									});
+		}
+	CKEDITOR.replace('description',{
+		width:500,
+		height:300
+	});	
+});
+
+   
+</script>
+<style>
+.error{
+	color:red;
+}
+</style>
+<div class="panel-body1">
+	<div class="row1">
+		<div class="col-md-41">
+		<?php 
+		   $form=$this->form;
+		   $form->setAttributes(array('action'=>$this->url(),'id'=>'addAlbum','enctype'=>'multipart/form-data'));
+		   $form->prepare();
+		   echo $this->form()->openTag($form)
+		   //echo $this->form->openTag($form);
+		   
+		?>
+		        <div class="form-group">
+					<label>Category:</label>
+					<?php 
+					   echo $this->formRow($form->get('category_id')->setValueOptions($categorys));
+					   //echo $this->formRow($form->get('category_id'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Author Name:</label>
+					<?php 
+					echo $this->formHidden($form->get('id'));
+					echo $this->formRow($form->get('name'));
+					/* $productName=$mf->get('name');
+					echo $this->formInput($productName); */
+					
+					?>
+					
+				</div>
+				<div class="form-group">
+					<label>Author Email:</label>
+					<?php 
+					echo $this->formRow($form->get('email'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Author Mobile:</label>
+					<?php
+						echo $this->formRow($form->get('mob'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Address:</label>
+					<?php
+						echo $this->formRow($form->get('address'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Album Title:</label>
+					<?php
+						echo $this->formRow($form->get('title'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Sort Des:</label>
+					<?php
+						echo $this->formRow($form->get('short_description'));
+					?>
+				</div>
+				<div class="form-group">
+					<label>Description:</label>
+					<?php
+						echo $this->formRow($form->get('description'));
+					?>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit </button>
+					<?php 
+						//echo $this->formRow($form->get('submit')); 
+					?>
+				
+				
+		        </form>
+		</div>
+	</div>
+</div>

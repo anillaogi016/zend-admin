@@ -1,0 +1,139 @@
+<?php
+$title='Albums List';
+$url_order = 'ASC';
+if($order_by == 'title')
+	$url_order=$order=='ASC' ? 'DESC':'ASC';
+elseif($order_by=='name')
+    $url_order=$order=='ASC' ? 'DESC':'ASC';
+elseif($order_by=='email')
+    $url_order=$order=='ASC' ? 'DESC':'ASC';
+?>
+<script>
+$(document).ready(function(){
+	$('a[rel*=facebox]').facebox() 
+	//$('.default_popup').popup();
+	/* $('a.default_popup').popup({
+		afterOpen : function(){
+			var popup = this;
+			setTimeout(function(){
+				popup.close();
+			}, 20000);
+		}
+	}); */
+	
+});
+</script>
+<div id="page-wrapper" >
+	<div id="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+			 <h2><?php echo $this->escapeHtml($title);?></h2>  
+            </div>
+			<div class="col-md-12" align="right">
+			 <h3><a href="<?php echo $this->url('addalbum'); ?>" rel="facebox">Add New &nbsp;<?php echo $this->CustomHelper();?></a></h3>  
+             		 
+			</div>
+		</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					 Albums
+					 <div>
+					 <?php //echo $this->flashMessenger()->render('error'); ?>
+					 </div>
+				</div>
+				 <div id="err_msg_id"><?php echo $this->flashMessenger()->render('error'); ?></div>
+				 
+                   <div id="suceess_msg_id"><?php echo $this->flashMessenger()->render(); ?></div>
+			
+				<div class="panel-body">
+					<form action="<?php echo $this->url('album'); ?>" name="searchForm" id="searchForm" method="get">
+						<table>
+							<tr>
+								<td>
+								<input type="text" name="search" placeholder="Search" value="<?php echo @$_REQUEST['search']; ?>">
+								<span><input type="submit" value="Search"></span>
+								</td>  
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								
+								<tr>
+								    <th><a href="<?php echo $this->url('album',array('order_by'=>'cat_name','order'=>$url_order)); ?>">Category Name</a></th>
+									<th><a href="<?php echo $this->url('album',array('order_by'=>'name','order'=>$url_order)); ?>">Auther Name</a></th>
+									<th><a href ="<?php echo $this->url('album',array('order_by'=>'email','order'=>$url_order)); ?>">Auther Email</a></th>
+									<th>Auther Mobile</th>
+									<th><a href="<?php echo $this->url('album',array('order_by' => 'title', 'order' => $url_order)); ?>">Title <?php if ($order_by == 'title'): ?><i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i><?php endif; ?></a></th>
+									<th>Image</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<?php
+							 if($paginator->count()!=0){
+								foreach($paginator as $row){ 
+								?>
+								<tbody>
+									<tr class="odd gradeX" >
+										<td><?php echo $row->cat_name;  ?></td>
+										<td><?php echo $row->name;  ?></td>
+										<td><?php echo $row->email; ?></td>
+										<td><?php echo $row->mob; ?></td>
+										<td><?php echo $row->title; ?></td>
+										<td>
+										
+										<?php if(!empty($row->image)){ ?>
+										
+										<img src="<?php echo $this->basePath().'/adminModule/img/AlbumImage/'.$row->image; ?>" width="100",height="100">
+										<?php }else{
+											 echo "Image Not Available";
+										} ?>
+										</td>
+										<td>
+											<a href="<?php echo $this->url('editalbum',array('controller' => 'album', 'action' => 'edit', 'id' => $row->id )); ?>" rel="facebox">Edit</a>|									 
+											<a href="<?php echo $this->url('deletealbum',array('controller'=>'album','action'=>'delete','id'=>$row->id ));?>" onclick="return confirm('Do you want to delete this record?')">Delete</a>|<a href="<?php echo $this->url('editimage',array('controller' => 'album', 'action' => 'editimage', 'id' => $row->id )); ?>" rel="facebox">Change Image</a>
+											<!--<a href="<?php echo $this->url('viewalbum',array('controller'=>'album','action'=>'viewproduct','id'=>$row->id )); ?>" rel="facebox">View</a>-->
+											
+										</td>
+									</tr>
+								
+									
+								</tbody>
+							<?php }
+							}else{ 
+							?>
+							<tbody>
+								<tr class="odd gradeX" >
+								    <td>Product Do not found!</td>
+								</tr>
+							</tbody>
+							<?php 
+							}
+							?>
+							
+							    
+								
+						</table>
+					</div>
+				</div>
+				<div class="panel-body">
+				<?php  if($paginator->count()>1){?>
+									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+									<?php  echo $this->paginationControl($paginator,
+                                                'Sliding',
+                                                'partial/paginator.phtml',
+                                                array('route' => 'album')); ?>
+									
+									</div>
+								<?php }  ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,108 @@
+<?php
+$title='Category List';
+$url_order = 'ASC';
+if($order_by == 'title')
+	$url_order=$order=='ASC' ? 'DESC':'ASC';
+elseif($order_by=='name')
+    $url_order=$order=='ASC' ? 'DESC':'ASC';
+elseif($order_by=='email')
+    $url_order=$order=='ASC' ? 'DESC':'ASC';
+?>
+<script>
+$(document).ready(function(){
+	$('a[rel*=facebox]').facebox() 
+});
+</script>
+
+<div id="page-wrapper" >
+	<div id="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+			 <h2><?php echo $this->escapeHtml($title);?></h2>  
+            </div>
+			<div class="col-md-12" align="right">
+			 <h3><a href="<?php echo $this->url('addcategory'); ?>" rel="facebox">Add New &nbsp;<?php //echo $this->CustomHelper();?></a></h3>  
+             		 
+			</div>
+		</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					 Category
+					 <div>
+					 <?php echo $this->flashMessenger()->render('error'); ?>
+					 </div>
+				</div>
+				<div class="panel-body">
+					<form action="<?php echo $this->url('category'); ?>" name="searchForm" id="searchForm" method="get">
+						<table>
+							<tr>
+								<td>
+								<input type="text" name="search" placeholder="Search" value="<?php echo @$_REQUEST['search']; ?>">
+								<span><input type="submit" value="Search"></span>
+								</td>  
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								
+								<tr>
+									<th><a href="<?php echo $this->url('category',array('order_by'=>'name','order'=>$url_order)); ?>">Category Name</a></th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<?php
+							 if($paginator->count()!=0){
+								foreach($paginator as $row){ 
+								?>
+								<tbody>
+									<tr class="odd gradeX" >
+										<td><?php echo $row->name;  ?></td>
+										<td>
+											<a href="<?php echo $this->url('editcategory',array('controller' => 'category', 'action' => 'edit', 'id' =>$row->id)); ?>" rel="facebox">Edit</a>
+											|									 
+											<a href="<?php echo $this->url('deletecategory',array('controller'=>'category','action'=>'delete','id'=>$row->id ));?>" onclick="return confirm('Do you want to delete this record?')">Delete</a>
+											
+										</td>
+									</tr>
+								
+									
+								</tbody>
+							<?php }
+							}else{ 
+							?>
+							<tbody>
+								<tr class="odd gradeX" >
+								    <td>Category do not found!</td>
+								</tr>
+							</tbody>
+							<?php 
+							}
+							?>
+							
+							    
+								
+						</table>
+					</div>
+				</div>
+				<div class="panel-body">
+				<?php  if($paginator->count()>1){?>
+									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+									<?php  echo $this->paginationControl($paginator,
+                                                'Sliding',
+                                                'partial/paginator.phtml',
+                                                array('route' => 'category')); ?>
+									
+									</div>
+								<?php }  ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

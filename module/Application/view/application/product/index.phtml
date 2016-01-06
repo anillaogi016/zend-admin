@@ -1,0 +1,102 @@
+
+<script>
+$(document).ready(function(){
+	$('a[rel*=facebox]').facebox() 
+});
+</script>
+<div id="page-wrapper" >
+	<div id="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+			 <h2>Products</h2>  
+            </div>
+			<div class="col-md-12" align="right">
+			 <h3><a href="<?php echo $this->url('addproduct'); ?>" rel="facebox">Add New</a></h3>  
+             		 
+			</div>
+		</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					 Products
+					 <div>
+					 <?php echo $this->flashMessenger()->render('error'); ?>
+					 </div>
+				</div>
+				<div class="panel-body">
+					<form action="<?php echo $this->url('productlist'); ?>" name="searchForm" id="searchForm" method="get">
+						<table>
+							<tr>
+								<td>
+								<input type="text" name="search" placeholder="Search" value="<?php echo @$_REQUEST['search']; ?>">
+								<span><input type="submit" value="Search"></span>
+								</td>  
+							</tr>
+						</table>
+					</form>
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+							<thead>
+								
+								<tr>
+									<th>Product Name</th>
+									<th>Product price</th>
+									<th>Product Quantity</th>
+									
+									<th>Action</th>
+								</tr>
+							</thead>
+							<?php
+							if($products->count()!=0){
+								foreach($products as $i=>$row){ 
+								?>
+								<tbody>
+									<tr class="odd gradeX" >
+										<td><?php  echo $row['name']; ?></td>
+										<td><?php  echo $row['price']; ?></td>
+										<td><?php  echo $row['quantity']; ?></td>
+										<td>
+											<a href="<?php echo $this->url('editproduct',array('controller' => 'product', 'action' => 'editproduct', 'id' => $row['id'])); ?>" rel="facebox">Edit</a>|									 
+											<a href="<?php echo $this->url('deleteproduct',array('controller'=>'product','action'=>'deleteproduct','id'=>$row['id']));?>" onclick="return confirm('Do you want to delete this record?')">Delete</a>|
+											<a href="<?php echo $this->url('viewproduct',array('controller'=>'product','action'=>'viewproduct','id'=>$row['id'])); ?>" rel="facebox">View</a>
+										</td>
+									</tr>
+								
+									
+								</tbody>
+							<?php }
+							}else{
+							?>
+							<tbody>
+								<tr class="odd gradeX" >
+								    <td>Product Do not found!</td>
+								</tr>
+							</tbody>
+							<?php 
+							}
+							?>
+							
+							    
+								
+						</table>
+					</div>
+				</div>
+				<div class="panel-body">
+				<?php if($products->count()>1){?>
+									<div id="dataTables-example_paginate" class="dataTables_paginate paging_simple_numbers">
+									<?php  echo $this->paginationControl($products,
+                                                'Sliding',
+                                                'partial/paginator.phtml',
+                                                array('route' => 'productlist')); ?>
+									
+									</div>
+								<?php } ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

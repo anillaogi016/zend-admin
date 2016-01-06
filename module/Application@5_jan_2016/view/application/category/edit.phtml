@@ -1,0 +1,50 @@
+<?php
+/*  if(define('RUNNING_FROM_ROOT')){
+	$this->plugin('basePath')->setBasePath($this->basePath() . '/public');
+}  */ 
+echo $this->inlineScript()
+        ->prependFile($this->basePath('js/ckeditor/ckeditor.js'))
+		->prependFile($this->basePath('js/jquery.validate.js'));
+?>
+<script>
+$(document).ready(function(){
+	if($("#editcategory").validate){
+			$("#editcategory").validate({
+											
+											
+									});
+		}
+	CKEDITOR.replace('description',{
+		width:500,
+		height:300
+	});	
+});
+
+   
+</script>
+<style>
+.error{
+	color:red;
+}
+</style>
+<div class="panel-body1">
+	<div class="row1">
+		<div class="col-md-41">
+		<?php 
+		   $form=$this->form;
+		   $form->setAttributes(array('action'=>$this->url('category',array('action'=>'edit','id'=>$this->id)),'id'=>'editcategory'));
+		   $form->prepare();
+		   echo $this->form()->openTag($form)
+		?>
+				<div class="form-group">
+					<label>Category Name:</label>
+					<?php 
+					echo $this->formHidden($form->get('id'));
+					echo $this->formRow($form->get('name'));
+					?>
+				</div>
+				<button type="submit" class="btn btn-primary">Submit </button>
+			    </form>
+		</div>
+	</div>
+</div>
